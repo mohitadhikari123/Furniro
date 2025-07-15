@@ -1,0 +1,175 @@
+.inspiration {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9f6f2;
+  padding: 80px 5%;
+}
+
+.content {
+  max-width: 40%;
+}
+
+.content h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.content p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.exploreBtn {
+  background: #b89037;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.exploreBtn:hover {
+  background: #a3792c;
+}
+
+.imageWrapper {
+  display: flex;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.mainImage {
+  position: relative;
+  width: 60%;
+}
+
+.mainImage img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.overlay span {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.overlay h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.arrowBtn {
+  background: #b89037;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 50%;
+}
+
+.arrowBtn:hover {
+  background: #a3792c;
+}
+
+.sideImages {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 40%;
+}
+
+.sideImages img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .inspiration {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+
+  .imageWrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .mainImage,
+  .sideImages {
+    width: 100%;
+  }
+
+  .overlay {
+    bottom: 20px;
+    left: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content h2 {
+    font-size: 2rem;
+  }
+
+  .content p {
+    font-size: 1rem;
+  }
+
+  .overlay h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .content h2 {
+    font-size: 1.8rem;
+  }
+
+  .content p {
+    font-size: 0.95rem;
+  }
+
+  .exploreBtn {
+    padding: 12px 24px;
+  }
+
+  .overlay {
+    bottom: 15px;
+    left: 15px;
+    padding: 10px;
+  }
+
+  .overlay h3 {
+    font-size: 1rem;
+  }
+
+  .arrowBtn {
+    padding: 6px 10px;
+  }
+}

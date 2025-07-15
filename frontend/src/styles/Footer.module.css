@@ -1,0 +1,197 @@
+/* Universal Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Footer Layout */
+.footer {
+  background: #fff;
+  color: #000;
+  padding: 50px 100px;
+  border-top: 1px solid gray;
+}
+
+/* Main Footer Container */
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2fr;
+  gap: 30px;
+  align-items: start;
+  justify-content: space-between;
+}
+
+/* Left Section */
+.left h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.left p {
+  color: #888;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* Links and Help Sections */
+.links,
+.help {
+  min-width: 150px;
+  text-align: left;
+}
+
+.links h3,
+.help h3,
+.newsletter h3 {
+  font-size: 18px;
+  color: #999;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+.newsletterheading {
+  width: 100%;
+  text-align: left;
+}
+.links ul,
+.help ul {
+  list-style: none;
+  padding: 0;
+}
+
+.links li,
+.help li {
+  margin-bottom: 25px;
+}
+
+.links a,
+.help a {
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.links a:hover,
+.help a:hover {
+  color: #555;
+}
+
+/* Newsletter Section */
+.newsletter {
+  max-width: 300px;
+}
+
+.subscribe {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subscribe input {
+  flex: 1;
+  padding: 10px 10px 10px 0;
+  border: none;
+  border-bottom: 2px solid #000;
+  outline: none;
+  font-size: 14px;
+}
+
+.subscribe button {
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 10px 10px 10px 0;
+  border-bottom: 2px solid black;
+  transition: color 0.3s ease;
+}
+
+.subscribe button:hover {
+  color: #555;
+}
+
+/* Divider Line */
+.divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 30px 0;
+}
+
+/* Bottom Section */
+.bottom {
+  text-align: left;
+  font-size: 14px;
+  color: #888;
+  padding: 20px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .footer {
+    padding: 40px 60px;
+  }
+  .container {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 30px 40px;
+  }
+  .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .links li,
+  .help li {
+    margin-bottom: 8px;
+  }
+  .links h3,
+  .help h3,
+  .newsletter h3 {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 20px 20px;
+  }
+  .subscribe {
+    flex-direction: column;
+  }
+  .subscribe input {
+    width: 100%;
+  }
+  .links li,
+  .help li {
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  .links h3,
+  .help h3,
+  .newsletter h3 {
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  .left h2 {
+    text-align: center;
+  }
+  .left p {
+    text-align: center;
+  }
+  .newsletter {
+  justify-self: center;
+}
+
+}

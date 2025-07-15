@@ -1,0 +1,164 @@
+/* General Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 80px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+/* Logo and Brand */
+.left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.left a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.logo {
+    width: 40px;
+    height: auto;
+}
+
+.brand {
+    font-size: 22px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Navigation Links */
+.navLinks {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    margin: 0;
+    transition: all 0.3s ease;
+}
+
+.navLinks li {
+    font-size: 18px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.navLinks li:hover {
+    color: #ff6f61;
+}
+
+/* Icons Section */
+.icons {
+    display: flex;
+    align-items: baseline;
+    gap: 25px;
+}
+
+/* Menu Icon (Hamburger) */
+.menuIcon {
+    font-size: 25px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+    display: none;  /* Hide by default on larger screens */
+}
+
+/* Individual Icons */
+.icon {
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.icon:hover {
+    color: #ff6f61;
+}
+
+/* Cart Icon with Counter */
+.cartIcon {
+    position: relative;
+}
+
+.cartCount {
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    background: #ff6f61;
+    color: #fff;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+/* Responsive Design with Pure CSS */
+
+/* Large Screens */
+@media screen and (min-width: 769px) {
+    .menuIcon {
+        display: none;  /* Hide menu icon on large screens */
+    }
+
+    .navLinks {
+        display: flex !important;
+    }
+}
+
+/* Medium Screens */
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+
+    .navLinks {
+        display: none;  /* Hide links by default on smaller screens */
+        flex-direction: column;
+        position: absolute;
+        top: 62px;
+        right: 0;
+        width: 30%;
+        background: #fff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        padding: 20px 0;
+        transition: all 0.3s ease;
+    }
+
+    .navLinks.open {
+        display: flex; 
+        gap: 0;
+    }
+
+    .navLinks li {
+        padding: 15px 20px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .menuIcon {
+        display: block; 
+        order: 1;
+    }
+
+    .icons {
+        gap: 10px;
+    }
+}
+@media (max-width: 480px) {
+
+.navbar {
+        padding: 15px 0px;
+    }
+}
