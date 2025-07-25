@@ -1,0 +1,277 @@
+.authPage {
+    min-height: 100vh;
+    background: #f8f9fa;
+}
+
+.banner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.bannerImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(3px);
+    transform: scale(1.1);
+}
+
+.banner h1,
+.banner p {
+    position: relative;
+    z-index: 1;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+}
+
+.banner h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.banner p {
+    font-size: 1.2rem;
+}
+
+.authContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    min-height: calc(100vh - 300px);
+}
+
+.authCard {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.authCard h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+.errorMessage {
+    background: #fee;
+    color: #c33;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #fcc;
+    font-size: 0.9rem;
+}
+
+.authForm {
+    margin-bottom: 30px;
+}
+
+.inputGroup {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.inputIcon {
+    position: absolute;
+    left: 15px;
+    color: #999;
+    font-size: 18px;
+    z-index: 1;
+}
+
+.input {
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #b89037;
+    box-shadow: 0 0 0 3px rgba(184, 144, 55, 0.1);
+}
+
+.input::placeholder {
+    color: #999;
+}
+
+.passwordToggle {
+    position: absolute;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+    z-index: 1;
+}
+
+.passwordToggle:hover {
+    color: #666;
+}
+
+.submitBtn {
+    width: 100%;
+    background: #b89037;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.submitBtn:hover:not(:disabled) {
+    background: #a67c2a;
+    transform: translateY(-1px);
+}
+
+.submitBtn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.divider {
+    position: relative;
+    margin: 30px 0;
+    text-align: center;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e1e5e9;
+}
+
+.divider span {
+    background: white;
+    padding: 0 20px;
+    color: #999;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 1;
+}
+
+.googleBtn {
+    width: 100%;
+    background: white;
+    color: #333;
+    border: 2px solid #e1e5e9;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.googleBtn:hover:not(:disabled) {
+    border-color: #b89037;
+    background: #fafafa;
+    transform: translateY(-1px);
+}
+
+.googleBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.googleIcon {
+    font-size: 20px;
+}
+
+.authLink {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.authLink a {
+    color: #b89037;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.authLink a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .authContainer {
+        padding: 40px 15px;
+    }
+    
+    .authCard {
+        padding: 30px 20px;
+    }
+    
+    .banner h1 {
+        font-size: 2rem;
+    }
+    
+    .authCard h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .authCard {
+        padding: 25px 15px;
+    }
+    
+    .input {
+        padding: 12px 12px 12px 40px;
+    }
+    
+    .submitBtn,
+    .googleBtn {
+        padding: 12px;
+    }
+}

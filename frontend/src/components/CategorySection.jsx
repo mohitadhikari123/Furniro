@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../styles/CategorySection.module.css";
 import LivingRoom from "../assets/LivingRoom.png";
 import Dining from "../assets/Dining.png";
@@ -11,6 +12,12 @@ const categories = [
 ];
 
 const CategorySection = () => {
+    const navigate = useNavigate();
+
+    const handleCategoryClick = (categoryName) => {
+        navigate(`/shop?category=${categoryName}`);
+    };
+
     return (
         <div className={styles.categories}>
             <h2 className={styles.title}>Browse The Range</h2>
@@ -19,7 +26,12 @@ const CategorySection = () => {
             </p>
             <div className={styles.grid}>
                 {categories.map((category, index) => (
-                    <div key={index} className={styles.card}>
+                    <div 
+                        key={index} 
+                        className={styles.card}
+                        onClick={() => handleCategoryClick(category.name)}
+                        style={{ cursor: 'pointer' }}
+                    >
                         <img src={category.img} alt={category.name} />
                         <h3>{category.name}</h3>
                     </div>

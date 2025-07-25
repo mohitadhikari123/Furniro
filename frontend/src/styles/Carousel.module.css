@@ -10,15 +10,41 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 1rem;
 }
 
 .slideTrack {
   display: flex;
   gap: 1rem;
-  transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
   will-change: transform;
+  width: max-content;
+}
+
+.slideLeft {
+  animation: slideLeftContinuous 60s linear infinite;
+}
+
+.slideRight {
+  animation: slideRightContinuous 60s linear infinite;
+}
+
+@keyframes slideLeftContinuous {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes slideRightContinuous {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .imageWrapper {
@@ -27,6 +53,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 300px;
+  min-width: 300px;
 }
 
 .image {

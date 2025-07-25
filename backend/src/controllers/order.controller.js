@@ -1,5 +1,26 @@
 import { Order } from "../models/Order.model.js";
 
+// Helper function to optimize image URLs
+const optimizeImageUrl = (url) => {
+    if (!url) return url;
+    
+    // Optimize Unsplash images
+    if (url.includes('unsplash.com')) {
+        // Add optimization parameters: width=800, quality=80, format=webp
+        const separator = url.includes('?') ? '&' : '?';
+        return `${url}${separator}w=800&q=80&fm=webp&fit=crop`;
+    }
+    
+    // Optimize Pexels images
+    if (url.includes('pexels.com')) {
+        // Add optimization parameters: width=800, height=600, fit=crop
+        const separator = url.includes('?') ? '&' : '?';
+        return `${url}${separator}auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`;
+    }
+    
+    return url;
+};
+
 export const createOrder = async (req, res) => {
     try {
         const userId = req.user.userId;
@@ -40,7 +61,22 @@ export const createOrder = async (req, res) => {
 export const getUserOrders = async (req, res) => {
     try {
         const orders = await Order.find({ user: req.user.userId }).populate("orderItems.product");
-        res.json(orders);
+        
+        // Optimize image URLs in populated product data
+        const optimizedOrders = orders.map(order => {
+            const orderObj = order.toObject();
+            if (orderObj.orderItems && orderObj.orderItems.length > 0) {
+                orderObj.orderItems = orderObj.orderItems.map(item => {
+                    if (item.product && item.product.images && item.product.images.length > 0) {
+                        item.product.images = item.product.images.map(optimizeImageUrl);
+                    }
+                    return item;
+                });
+            }
+            return orderObj;
+        });
+        
+        res.json(optimizedOrders);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

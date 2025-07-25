@@ -86,6 +86,7 @@
 /* Cart Icon with Counter */
 .cartIcon {
     position: relative;
+    cursor: pointer;
 }
 
 .cartCount {
@@ -101,6 +102,117 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+}
+
+/* Favorites Icon with Counter */
+.favoritesIcon {
+    position: relative;
+    cursor: pointer;
+}
+
+.favoritesCount {
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    background: #ff6b6b;
+    color: #fff;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+/* User Authentication Styles */
+.loginLink {
+    text-decoration: none;
+}
+
+.userMenu {
+    position: relative;
+}
+
+.userIcon {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #b89037;
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    min-width: 200px;
+    z-index: 1001;
+    margin-top: 10px;
+}
+
+.dropdown::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid white;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e1e5e9;
+}
+
+.userName {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.userEmail {
+    color: #666;
+    font-size: 12px;
+}
+
+.logoutBtn {
+    width: 100%;
+    background: #f8f9fa;
+    border: 1px solid #e1e5e9;
+    color: #666;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.logoutBtn:hover {
+    background: #ff6f61;
+    color: white;
+    border-color: #ff6f61;
 }
 
 /* Responsive Design with Pure CSS */
@@ -156,9 +268,9 @@
         gap: 10px;
     }
 }
-@media (max-width: 480px) {
 
-.navbar {
+@media (max-width: 480px) {
+    .navbar {
         padding: 15px 0px;
     }
 }

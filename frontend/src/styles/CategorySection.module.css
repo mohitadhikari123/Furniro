@@ -25,10 +25,12 @@
   flex: 1;
   max-width: 230px;
   overflow: hidden;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
   background-color: #fff;
   color: #000;
   padding-bottom: 10px;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card img {
@@ -39,7 +41,13 @@
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card:active {
+  transform: translateY(-2px);
+  transition: transform 0.1s ease;
 }
 
 .card h3 {

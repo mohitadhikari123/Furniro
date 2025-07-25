@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "../styles/SingleProduct.module.css";
 import ProductGrid from "../components/ProductGrid";
-import { FaStar, FaStarHalfAlt, FaRegStar, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt, FaRegStar, FaFacebookF, FaLinkedinIn, FaHeart, FaRegHeart } from "react-icons/fa";
 import { SiX } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { productApi } from "../services/productApi";
+import { addToFavorites, removeFromFavorites, addToFavoritesAsync, removeFromFavoritesAsync } from "../slices/favoritesSlice";
+import { addToCartAsync } from "../slices/cartSlice";
 import image1 from "../assets/Product1.png";
 import image2 from "../assets/MaskGroup.png";
 import image3 from "../assets/LivingRoom.png";
@@ -15,15 +18,76 @@ import image5 from "../assets/LivingRoom.png";
 const SingleProduct = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedImage, setSelectedImage] = useState(0);
     const [quantity, setQuantity] = useState(1);
     const [selectedSize, setSelectedSize] = useState("");
+    const [isAddingToCart, setIsAddingToCart] = useState(false);
+    const [buttonState, setButtonState] = useState('default'); // 'default', 'adding', 'added'
+    
+    // Get favorites from Redux store
+    const favorites = useSelector(state => state.favorites?.favoriteItems || []);
+    const { isAuthenticated } = useSelector(state => state.auth);
+    const isLiked = favorites.some(item => item._id === product?._id);
 
-    // Scroll to top when product changes
+    // Handle like toggle function
+    const handleLikeToggle = async () => {
+        if (!isAuthenticated) {
+            // Fallback to localStorage for non-authenticated users
+            if (isLiked) {
+                dispatch(removeFromFavorites(product._id));
+            } else {
+                dispatch(addToFavorites(product));
+            }
+            return;
+        }
+        
+        try {
+            if (isLiked) {
+                await dispatch(removeFromFavoritesAsync(product._id));
+            } else {
+                await dispatch(addToFavoritesAsync(product));
+            }
+        } catch (error) {
+            console.error('Error updating favorites:', error);
+            // Fallback to local action if API fails
+            if (isLiked) {
+                dispatch(removeFromFavorites(product._id));
+            } else {
+                dispatch(addToFavorites(product));
+            }
+        }
+    };
+
+    // Handle add to cart function
+    const handleAddToCart = async () => {
+        setIsAddingToCart(true);
+        setButtonState('adding');
+        
+        try {
+            await dispatch(addToCartAsync({ product, quantity }));
+            setButtonState('added');
+            
+            // Reset button state after animation
+            setTimeout(() => {
+                setButtonState('default');
+            }, 600);
+        } catch (error) {
+            console.error('Failed to add to cart:', error);
+            setButtonState('default');
+        } finally {
+            setIsAddingToCart(false);
+        }
+    };
+
+    // Reset states when product ID changes
     useEffect(() => {
+        setQuantity(1);
+        setSelectedImage(0);
+        setSelectedSize("");
         window.scrollTo({ top: 0, behavior: "smooth" });
     }, [id]);
 
@@ -168,8 +232,21 @@ const SingleProduct = () => {
                             <span>{quantity}</span>
                             <button onClick={() => setQuantity(q => q + 1)}>+</button>
                         </div>
-                        <button className={styles.cartBtn}>Add To Cart</button>
+                        <button 
+                            className={`${styles.cartBtn} ${buttonState === 'adding' ? styles.adding : ''} ${buttonState === 'added' ? styles.added : ''}`}
+                            onClick={handleAddToCart}
+                            disabled={isAddingToCart}
+                        >
+                            {isAddingToCart ? 'Adding...' : 'Add To Cart'}
+                        </button>
                         <button className={styles.compareBtn}>+ Compare</button>
+                        <button 
+                            className={`${styles.likeBtn} ${isLiked ? styles.liked : ''}`}
+                            onClick={handleLikeToggle}
+                        >
+                            {isLiked ? <FaHeart /> : <FaRegHeart />}
+                            {isLiked ? ' Liked' : ' Like'}
+                        </button>
                     </div>
 
                     <div className={styles.productInfo}>

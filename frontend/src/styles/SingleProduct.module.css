@@ -187,7 +187,8 @@ h1 {
 }
 
 .cartBtn,
-.compareBtn {
+.compareBtn,
+.likeBtn {
   background: #b89037;
   color: white;
   border: none;
@@ -195,11 +196,96 @@ h1 {
   cursor: pointer;
   transition: 0.3s;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
 }
 
 .cartBtn:hover,
-.compareBtn:hover {
+.compareBtn:hover,
+.likeBtn:hover {
   background: #000;
+}
+
+.cartBtn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+.cartBtn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Click animation for cart button */
+@keyframes cartClickAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+    background: #a67c2a;
+  }
+  100% {
+    transform: scale(1);
+    background: #28a745;
+  }
+}
+
+/* Success animation when item is added */
+@keyframes cartSuccessAnimation {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 15px rgba(40, 167, 69, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+  }
+}
+
+/* Ripple effect for cart button */
+.cartBtn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.cartBtn:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Adding state for when item is successfully added */
+.cartBtn.adding {
+  animation: cartClickAnimation 0.6s ease-out;
+}
+
+.cartBtn.added {
+  background: #28a745;
+  animation: cartSuccessAnimation 0.6s ease-out;
+}
+
+.likeBtn.liked {
+  background: #ff6b6b;
+}
+
+.likeBtn.liked:hover {
+  background: #ff7d7d;
 }
 
 .productInfo p {

@@ -69,3 +69,62 @@ export const getProfile = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+// Google OAuth Success Handler
+export const googleAuthSuccess = async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.send(`
+                <script>
+                    window.opener.postMessage({
+                        type: 'GOOGLE_AUTH_ERROR',
+                        message: 'Authentication failed'
+                    }, '${process.env.FRONTEND_URL || 'http://localhost:3001'}');
+                    window.close();
+                </script>
+            `);
+        }
+
+        // Generate JWT token for the authenticated user
+        const token = jwt.sign({ userId: req.user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+        
+        // Exclude password from response
+        const { password: _, ...userWithoutPassword } = req.user.toObject();
+        
+        // Send HTML with script to communicate with parent window
+        res.send(`
+            <script>
+                window.opener.postMessage({
+                    type: 'GOOGLE_AUTH_SUCCESS',
+                    token: '${token}',
+                    user: ${JSON.stringify(userWithoutPassword)}
+                }, '${process.env.FRONTEND_URL || 'http://localhost:3001'}');
+                window.close();
+            </script>
+        `);
+    } catch (error) {
+        console.error("Google auth success error:", error);
+        res.send(`
+            <script>
+                window.opener.postMessage({
+                    type: 'GOOGLE_AUTH_ERROR',
+                    message: 'Server error during authentication'
+                }, '${process.env.FRONTEND_URL || 'http://localhost:3001'}');
+                window.close();
+            </script>
+        `);
+    }
+};
+
+// Google OAuth Failure Handler
+export const googleAuthFailure = (req, res) => {
+    res.send(`
+        <script>
+            window.opener.postMessage({
+                type: 'GOOGLE_AUTH_ERROR',
+                message: 'Google authentication failed'
+            }, '${process.env.FRONTEND_URL || 'http://localhost:3001'}');
+            window.close();
+        </script>
+    `);
+};

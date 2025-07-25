@@ -2,9 +2,13 @@ const API_BASE_URL = 'http://localhost:5000/api';
 
 export const productApi = {
     // Get all products
-    getAllProducts: async () => {
+    getAllProducts: async (category = null, signal = null) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/products`);
+            let url = `${API_BASE_URL}/products`;
+            if (category) {
+                url += `?category=${encodeURIComponent(category)}`;
+            }
+            const response = await fetch(url, { signal });
             if (!response.ok) {
                 throw new Error('Failed to fetch products');
             }
