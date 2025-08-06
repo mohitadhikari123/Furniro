@@ -82,3 +82,85 @@ export const getUserOrders = async (req, res) => {
     }
 };
 
+// Update order status
+export const updateOrderStatus = async (req, res) => {
+    try {
+        const { orderId } = req.params;
+        const { orderStatus } = req.body;
+        
+        // Validate order status
+        const validStatuses = ['Processing', 'Confirmed', 'Shipped', 'Out for Delivery', 'Delivered', 'Cancelled'];
+        if (!validStatuses.includes(orderStatus)) {
+            return res.status(400).json({ message: 'Invalid order status' });
+        }
+        
+        const order = await Order.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+        
+        // Update order status
+        order.orderStatus = orderStatus;
+        
+        // Update delivery tracking based on status
+        const now = new Date();
+        switch (orderStatus) {
+            case 'Confirmed':
+                order.deliveryTracking.confirmed = { status: true, timestamp: now };
+                break;
+            case 'Shipped':
+                order.deliveryTracking.confirmed = { status: true, timestamp: order.deliveryTracking.confirmed?.timestamp || now };
+                order.deliveryTracking.shipped = { status: true, timestamp: now };
+                break;
+            case 'Out for Delivery':
+                order.deliveryTracking.confirmed = { status: true, timestamp: order.deliveryTracking.confirmed?.timestamp || now };
+                order.deliveryTracking.shipped = { status: true, timestamp: order.deliveryTracking.shipped?.timestamp || now };
+                order.deliveryTracking.outForDelivery = { status: true, timestamp: now };
+                break;
+            case 'Delivered':
+                order.deliveryTracking.confirmed = { status: true, timestamp: order.deliveryTracking.confirmed?.timestamp || now };
+                order.deliveryTracking.shipped = { status: true, timestamp: order.deliveryTracking.shipped?.timestamp || now };
+                order.deliveryTracking.outForDelivery = { status: true, timestamp: order.deliveryTracking.outForDelivery?.timestamp || now };
+                order.deliveryTracking.delivered = { status: true, timestamp: now };
+                break;
+        }
+        
+        await order.save();
+        res.json({ message: 'Order status updated successfully', order });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Get single order by ID
+export const getOrderById = async (req, res) => {
+    try {
+        const { orderId } = req.params;
+        const order = await Order.findById(orderId).populate('orderItems.product');
+        
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+        
+        // Check if user owns this order (for security)
+        if (order.user.toString() !== req.user.userId) {
+            return res.status(403).json({ message: 'Access denied' });
+        }
+        
+        // Optimize image URLs
+        const orderObj = order.toObject();
+        if (orderObj.orderItems && orderObj.orderItems.length > 0) {
+            orderObj.orderItems = orderObj.orderItems.map(item => {
+                if (item.product && item.product.images && item.product.images.length > 0) {
+                    item.product.images = item.product.images.map(optimizeImageUrl);
+                }
+                return item;
+            });
+        }
+        
+        res.json(orderObj);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+

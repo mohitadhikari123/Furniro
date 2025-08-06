@@ -19,6 +19,8 @@
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .card {
@@ -26,7 +28,7 @@
   max-width: 230px;
   overflow: hidden;
   transition: all 0.3s ease;
-  background-color: #fff;
+  background-color: #e7f4ff;
   color: #000;
   padding-bottom: 10px;
   border-radius: 15px;
@@ -34,7 +36,8 @@
 }
 
 .card img {
-  height: 280px;
+  /* height: 280px; */
+  width: -webkit-fill-available;
   object-fit: cover;
   border-bottom: 2px solid #ddd;
   border-radius: 15px;
@@ -56,6 +59,66 @@
   margin-top: 10px;
 }
 
+.viewAllCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #b88e2f 0%, #d4af37 100%);
+  color: white;
+  min-height: 320px;
+}
+
+.viewAllContent {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.viewAllIcon {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
+
+.viewAllCard h3 {
+  color: #b8860b;
+  font-size: 1.1rem;
+  margin: 0;
+  text-align: center;
+}
+
+.viewAllCard:hover {
+  background: linear-gradient(135deg, #a67c2a 0%, #c19b2e 100%);
+}
+
+/* Minimalist Border Style */
+.minimalistBorder {
+  background: white;
+  border: 3px dashed #b8860b;
+  color: #b8860b;
+}
+
+.minimalistIcon {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+}
+
+.categoryCount {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-top: 8px;
+}
+
+.minimalistBorder:hover {
+  border-color: #9a7209;
+  background: rgba(184, 134, 11, 0.05);
+  transform: translateY(-8px);
+}
+
 @media (max-width: 1024px) {
   .grid {
     flex-direction: row;
@@ -66,11 +129,57 @@
 
 @media (max-width: 768px) {
   .grid {
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+    max-width: 100%;
+    padding: 0 10px;
   }
-
+  
   .card {
-    max-width: 90%;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .card img {
+    height: 180px;
+  }
+  
+  .viewAllCard {
+    max-width: 100%;
+    width: 100%;
+    min-height: 180px;
+  }
+  
+  .minimalistIcon {
+    font-size: 1.8rem;
+  }
+  
+  .categoryCount {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    gap: 10px;
+    padding: 0 5px;
+  }
+  
+  .card img {
+    height: 160px;
+  }
+  
+  .viewAllCard {
+    min-height: 160px;
+  }
+  
+  .minimalistIcon {
+    font-size: 1.6rem;
+  }
+  
+  .card h3 {
+    font-size: 1rem;
   }
 }

@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FiEye, FiEyeOff, FiMail, FiLock } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import { loginUser, clearError, setUser } from "../slices/authSlice";
 import styles from "../styles/Auth.module.css";
 import Product1 from "../assets/MaskGroup.png";
+import { syncFavoritesWithBackend } from '../slices/favoritesSlice';
+import { syncCartWithBackend } from '../slices/cartSlice';
 
 const Login = () => {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
     const [formData, setFormData] = useState({
         email: "",
         password: ""
@@ -15,7 +20,22 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const { loading, error, isAuthenticated } = useSelector((state) => state.auth);
+    
+    // Get redirect URL from query params or state
+    const getRedirectUrl = useCallback(() => {
+        const urlParams = new URLSearchParams(location.search);
+        const redirectParam = urlParams.get('redirect');
+        const stateRedirect = location.state?.from;
+        
+        // Only redirect to cart if coming from checkout flow
+        if (redirectParam === 'checkout' || stateRedirect === '/checkout') {
+            return '/cart';
+        }
+        
+        return '/';
+    }, [location.search, location.state]);
 
     const handleChange = (e) => {
         setFormData({
@@ -28,9 +48,10 @@ const Login = () => {
     // Redirect if already authenticated
     useEffect(() => {
         if (isAuthenticated) {
-            navigate('/');
+            const redirectUrl = getRedirectUrl();
+            navigate(redirectUrl);
         }
-    }, [isAuthenticated, navigate]);
+    }, [isAuthenticated, navigate, getRedirectUrl]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,21 +59,26 @@ const Login = () => {
     };
 
     const handleGoogleLogin = () => {
+        // Get redirect parameter to pass to Google OAuth
+        const urlParams = new URLSearchParams(location.search);
+        const redirectParam = urlParams.get('redirect');
+        const googleAuthUrl = `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/auth/google${redirectParam ? `?redirect=${redirectParam}` : ''}`;
+        
         // Open Google OAuth in a popup window
         const popup = window.open(
-            `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/auth/google`,
+            googleAuthUrl,
             'google-auth',
             'width=500,height=600,scrollbars=yes,resizable=yes'
         );
 
         // Listen for messages from the popup
-        const handleMessage = (event) => {
+        const handleMessage = async (event) => {
             if (event.origin !== (process.env.REACT_APP_API_URL || 'http://localhost:5000')) {
                 return;
             }
 
             if (event.data.type === 'GOOGLE_AUTH_SUCCESS') {
-                const { token, user } = event.data;
+                const { token, user, redirect } = event.data;
                 
                 // Store in localStorage
                 localStorage.setItem('token', token);
@@ -63,7 +89,13 @@ const Login = () => {
                 
                 // Close popup and navigate
                 popup.close();
-                navigate('/');
+
+                await dispatch(syncFavoritesWithBackend());
+                await dispatch(syncCartWithBackend());
+                
+                // Use redirect from backend if available, otherwise use local logic
+                const redirectUrl = redirect === 'checkout' ? '/cart' : getRedirectUrl();
+                navigate(redirectUrl);
                 window.location.reload();
             } else if (event.data.type === 'GOOGLE_AUTH_ERROR') {
                 console.error('Google authentication failed:', event.data.message);

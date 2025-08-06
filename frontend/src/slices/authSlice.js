@@ -3,7 +3,8 @@ import { authApi } from '../services/authApi';
 import { syncFavoritesWithBackend, clearLocalStorage as clearFavoritesLocalStorage } from './favoritesSlice';
 import { syncCartWithBackend, clearLocalStorage as clearCartLocalStorage } from './cartSlice';
 import { showNotification } from './notificationSlice';
-import { Navigate } from 'react-router-dom';
+
+
 
 // Async thunks for authentication actions
 export const loginUser = createAsyncThunk(
@@ -14,24 +15,19 @@ export const loginUser = createAsyncThunk(
             // Store token and user data in localStorage
             localStorage.setItem('token', response.token);
             localStorage.setItem('user', JSON.stringify(response.user));
-            window.location.reload(true);
 
             // Sync localStorage data with backend and clear local storage
             await dispatch(syncFavoritesWithBackend());
 
             await dispatch(syncCartWithBackend());
 
-            // Clear local storage after successful sync
-            dispatch(clearFavoritesLocalStorage());
-            dispatch(clearCartLocalStorage());
+           
 
             // Show success notification
             dispatch(showNotification({
                 message: 'Login successful! Welcome back.',
                 type: 'success'
             }));
-
-            window.location.reload();
 
             return response;
         } catch (error) {
@@ -53,9 +49,7 @@ export const registerUser = createAsyncThunk(
             await dispatch(syncFavoritesWithBackend());
             await dispatch(syncCartWithBackend());
 
-            // Clear local storage after successful sync
-            dispatch(clearFavoritesLocalStorage());
-            dispatch(clearCartLocalStorage());
+            
 
             // Show success notification
             dispatch(showNotification({
@@ -97,8 +91,6 @@ export const logoutUser = createAsyncThunk(
             message: 'Logout successful! See you soon.',
             type: 'success'
         }));
-        Navigate('/');
-            window.location.reload(true);
         return null;
     }
 );

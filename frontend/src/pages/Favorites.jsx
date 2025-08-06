@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
+import FeaturesSection from "../components/FeaturesSection";
 import styles from "../styles/Favorites.module.css";
 import Product1 from "../assets/MaskGroup.png";
 
@@ -40,6 +41,8 @@ const Favorites = () => {
                     </>
                 )}
             </div>
+            
+            <FeaturesSection variant="default" />
         </div>
     );
 };

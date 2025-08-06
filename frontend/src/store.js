@@ -3,6 +3,7 @@ import cartReducer from './slices/cartSlice';
 import favoritesReducer from './slices/favoritesSlice';
 import authReducer from './slices/authSlice';
 import notificationReducer from './slices/notificationSlice';
+import productsReducer from './slices/productsSlice';
 
 const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
         favorites: favoritesReducer,
         auth: authReducer,
         notification: notificationReducer,
+        products: productsReducer,
     },
     devTools: process.env.NODE_ENV !== 'production',
 });

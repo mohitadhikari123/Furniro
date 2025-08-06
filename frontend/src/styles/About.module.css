@@ -1,0 +1,377 @@
+/* About Page Styles */
+.aboutPage {
+    min-height: 100vh;
+}
+
+/* Banner Section */
+.banner {
+    position: relative;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.bannerImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(3px);
+    transform: scale(1.1);
+}
+
+.bannerContent {
+    position: relative;
+    z-index: 1;
+}
+
+.bannerContent h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.bannerContent p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: white;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* Story Section */
+.storySection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+    align-items: center;
+}
+
+.storyContent h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 30px;
+}
+
+.storyContent p {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.storyImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagePlaceholder {
+    background: #f9f6f2;
+    border-radius: 15px;
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.imagePlaceholder span {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.imagePlaceholder p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #b89037;
+    margin: 0;
+}
+
+/* Mission & Vision */
+.missionVision {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 80px;
+}
+
+.missionCard,
+.visionCard {
+    background: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.missionCard:hover,
+.visionCard:hover {
+    transform: translateY(-5px);
+}
+
+.cardIcon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.missionCard h3,
+.visionCard h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.missionCard p,
+.visionCard p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Values Section */
+.valuesSection {
+    margin-bottom: 80px;
+}
+
+.valuesSection h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.valuesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.valueItem {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.valueItem:hover {
+    transform: translateY(-3px);
+}
+
+.valueIcon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.valueItem h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 15px;
+}
+
+.valueItem p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Team Section */
+.teamSection {
+    margin-bottom: 80px;
+}
+
+.teamSection h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.teamIntro {
+    font-size: 1.1rem;
+    color: #666;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 50px;
+    line-height: 1.6;
+}
+
+.teamGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.teamMember {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.teamMember:hover {
+    transform: translateY(-5px);
+}
+
+.memberPhoto {
+    width: 80px;
+    height: 80px;
+    background: #f9f6f2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2rem;
+}
+
+.teamMember h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.teamMember p {
+    font-size: 1rem;
+    color: #b89037;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.teamMember span {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* Features Section */
+.features {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 60px 20px;
+    background: #fdf9f4;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+    max-width: 280px;
+}
+
+.featureIcon {
+    font-size: 2rem;
+    min-width: 50px;
+}
+
+.feature h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.feature p {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .storySection,
+    .missionVision {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .teamGrid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 15px;
+    }
+    
+    .bannerContent h1 {
+        font-size: 2rem;
+    }
+    
+    .bannerContent p {
+        font-size: 1rem;
+    }
+    
+    .storyContent h2,
+    .valuesSection h2,
+    .teamSection h2 {
+        font-size: 2rem;
+    }
+    
+    .valuesGrid {
+        grid-template-columns: 1fr;
+    }
+    
+    .features {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .feature {
+        flex-direction: column;
+        text-align: center;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .missionCard,
+    .visionCard,
+    .valueItem,
+    .teamMember {
+        padding: 20px;
+    }
+    
+    .imagePlaceholder {
+        padding: 40px 20px;
+    }
+    
+    .imagePlaceholder span {
+        font-size: 3rem;
+    }
+    
+    .cardIcon,
+    .valueIcon {
+        font-size: 2rem;
+    }
+}

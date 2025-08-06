@@ -16,6 +16,9 @@ import image4 from "../assets/MaskGroup.png";
 import image5 from "../assets/LivingRoom.png";
 
 const SingleProduct = () => {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -239,7 +242,6 @@ const SingleProduct = () => {
                         >
                             {isAddingToCart ? 'Adding...' : 'Add To Cart'}
                         </button>
-                        <button className={styles.compareBtn}>+ Compare</button>
                         <button 
                             className={`${styles.likeBtn} ${isLiked ? styles.liked : ''}`}
                             onClick={handleLikeToggle}
@@ -268,7 +270,7 @@ const SingleProduct = () => {
 
             <div className={styles.relatedProducts}>
                 <h2>Related Products</h2>
-                <ProductGrid />
+                <ProductGrid category={product?.category} excludeProductId={product?._id} />
             </div>
         </div>
     );

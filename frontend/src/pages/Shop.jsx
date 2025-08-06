@@ -2,18 +2,22 @@ import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import styles from "../styles/Shop.module.css";
 import ProductGrid from "../components/ProductGrid";
+import FeaturesSection from "../components/FeaturesSection";
 import Product1 from "../assets/MaskGroup.png";
-import { LuTrophy, LuShieldCheck, LuTruck, LuHeadphones } from "react-icons/lu";
 
 const Shop = () => {
     const [searchParams] = useSearchParams();
     const category = searchParams.get('category');
+    const searchQuery = searchParams.get('search');
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
-    }, [searchParams, category]);
+    }, [searchParams, category, searchQuery]);
 
     const getPageTitle = () => {
+        if (searchQuery) {
+            return `Search Results`;
+        }
         if (category) {
             return `${category} Collection`;
         }
@@ -21,6 +25,9 @@ const Shop = () => {
     };
 
     const getBreadcrumb = () => {
+        if (searchQuery) {
+            return `Home > Shop > Search: "${searchQuery}"`;
+        }
         if (category) {
             return `Home > Shop > ${category}`;
         }
@@ -36,41 +43,9 @@ const Shop = () => {
                 <p>{getBreadcrumb()}</p>
             </div>
 
-            <ProductGrid key={category || 'all'} category={category} />
+            <ProductGrid key={`${category || 'all'}-${searchQuery || 'none'}`} category={category} searchQuery={searchQuery} showAll={true} />
 
-            <div className={styles.features}>
-                <div className={styles.feature}>
-                    <LuTrophy className={styles.icon} />
-                    <div>
-                        <h3>High Quality</h3>
-                        <p>crafted from top materials</p>
-                    </div>
-                </div>
-
-                <div className={styles.feature}>
-                    <LuShieldCheck className={styles.icon} />
-                    <div>
-                        <h3>Warranty Protection</h3>
-                        <p>Over 2 years</p>
-                    </div>
-                </div>
-
-                <div className={styles.feature}>
-                    <LuTruck className={styles.icon} />
-                    <div>
-                        <h3>Free Shipping</h3>
-                        <p>Order over 150 $</p>
-                    </div>
-                </div>
-
-                <div className={styles.feature}>
-                    <LuHeadphones className={styles.icon} />
-                    <div>
-                        <h3>24 / 7 Support</h3>
-                        <p>Dedicated support</p>
-                    </div>
-                </div>
-            </div>
+            <FeaturesSection variant="default" />
 
         </div>
     );

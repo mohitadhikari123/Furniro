@@ -28,7 +28,7 @@ const OrderSchema = new mongoose.Schema({
 
     paymentMethod: {
         type: String,
-        enum: ["Direct Bank Transfer", "Cash On Delivery"],
+        enum: ["UPI", "Cash On Delivery", "Stripe"],
         required: true
     },
 
@@ -42,8 +42,31 @@ const OrderSchema = new mongoose.Schema({
 
     orderStatus: {
         type: String,
-        enum: ["Processing", "Shipped", "Delivered", "Cancelled"],
+        enum: ["Processing", "Confirmed", "Shipped", "Out for Delivery", "Delivered", "Cancelled"],
         default: "Processing"
+    },
+
+    deliveryTracking: {
+        orderPlaced: {
+            status: { type: Boolean, default: true },
+            timestamp: { type: Date, default: Date.now }
+        },
+        confirmed: {
+            status: { type: Boolean, default: false },
+            timestamp: { type: Date }
+        },
+        shipped: {
+            status: { type: Boolean, default: false },
+            timestamp: { type: Date }
+        },
+        outForDelivery: {
+            status: { type: Boolean, default: false },
+            timestamp: { type: Date }
+        },
+        delivered: {
+            status: { type: Boolean, default: false },
+            timestamp: { type: Date }
+        }
     },
 
 }, { timestamps: true });

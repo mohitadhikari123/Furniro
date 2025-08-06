@@ -1,13 +1,18 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCartAsync, updateQuantity } from "../slices/cartSlice";
+import FeaturesSection from "../components/FeaturesSection";
 import styles from "../styles/Cart.module.css";
 import Product1 from "../assets/MaskGroup.png";
 import { FiTrash2, FiPlus, FiMinus } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Cart = () => {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const cartItems = useSelector((state) => state.cart.cartItems);
 
     useEffect(() => {
@@ -92,39 +97,52 @@ const Cart = () => {
                                                 />
                                             </div>
                                             
-                                            <div className={styles.itemDetails}>
+                                            <div 
+                                                className={styles.itemDetails}
+                                                onClick={() => navigate(`/product/${item._id}`)}
+                                                style={{ cursor: 'pointer' }}
+                                            >
                                                 <h3 className={styles.itemName}>{item.name}</h3>
                                                 <p className={styles.itemPrice}>{formatPrice(itemPrice)}</p>
                                                 <p className={styles.itemCategory}>{item.category}</p>
                                             </div>
                                         
-                                        <div className={styles.quantityControls}>
-                                            <button 
-                                                className={styles.quantityBtn}
-                                                onClick={() => handleQuantityChange(item._id, item.quantity - 1)}
-                                            >
-                                                <FiMinus />
-                                            </button>
-                                            <span className={styles.quantity}>{item.quantity}</span>
-                                            <button 
-                                                className={styles.quantityBtn}
-                                                onClick={() => handleQuantityChange(item._id, item.quantity + 1)}
-                                            >
-                                                <FiPlus />
-                                            </button>
-                                        </div>
+                                            <div className={styles.quantityControls}>
+                                                <button 
+                                                    className={styles.quantityBtn}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleQuantityChange(item._id, item.quantity - 1);
+                                                    }}
+                                                >
+                                                    <FiMinus />
+                                                </button>
+                                                <span className={styles.quantity}>{item.quantity}</span>
+                                                <button 
+                                                    className={styles.quantityBtn}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleQuantityChange(item._id, item.quantity + 1);
+                                                    }}
+                                                >
+                                                    <FiPlus />
+                                                </button>
+                                            </div>
                                         
                                             <div className={styles.itemTotal}>
                                                 {formatPrice(itemPrice * quantity)}
                                             </div>
                                         
-                                        <button 
-                                            className={styles.removeBtn}
-                                            onClick={() => handleRemoveFromCart(item._id)}
-                                            title="Remove from cart"
-                                        >
-                                            <FiTrash2 />
-                                        </button>
+                                            <button 
+                                                className={styles.removeBtn}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleRemoveFromCart(item._id);
+                                                }}
+                                                title="Remove from cart"
+                                            >
+                                                <FiTrash2 />
+                                            </button>
                                         </div>
                                     );
                                 })}
@@ -155,6 +173,8 @@ const Cart = () => {
                     </>
                 )}
             </div>
+            
+            <FeaturesSection variant="compact" />
         </div>
     );
 };

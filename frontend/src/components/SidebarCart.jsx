@@ -150,7 +150,14 @@ const SidebarCart = ({ isOpen, onClose }) => {
                                         </div>
                                     )}
 
-                                    <div className={styles.itemContent}>
+                                    <div 
+                                        className={styles.itemContent}
+                                        onClick={() => {
+                                            navigate(`/product/${item._id}`);
+                                            onClose();
+                                        }}
+                                        style={{ cursor: 'pointer' }}
+                                    >
                                         <img 
                                             src={getImageSrc(item)} 
                                             alt={item.name} 
@@ -158,14 +165,7 @@ const SidebarCart = ({ isOpen, onClose }) => {
                                             onError={(e) => { e.target.src = fallbackImage; }}
                                         />
                                         <div className={styles.itemInfo}>
-                                            <h4 
-                                                className={styles.itemName}
-                                                onClick={() => {
-                                                    navigate(`/product/${item._id}`);
-                                                    onClose();
-                                                }}
-                                                style={{ cursor: 'pointer' }}
-                                            >
+                                            <h4 className={styles.itemName}>
                                                 {item.name}
                                             </h4>
                                             <div className={styles.itemMeta}>
@@ -181,7 +181,10 @@ const SidebarCart = ({ isOpen, onClose }) => {
                                         </div>
                                         <button
                                             className={styles.removeBtn}
-                                            onClick={() => setShowConfirmRemove(item._id)}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setShowConfirmRemove(item._id);
+                                            }}
                                             disabled={itemLoading[item._id]}
                                             title="Remove from cart"
                                             aria-label={`Remove ${item.name} from cart`}
@@ -219,11 +222,11 @@ const SidebarCart = ({ isOpen, onClose }) => {
                                 >
                                     Cart
                                 </button>
-                                <button className={styles.checkoutBtn}>
+                                <button className={styles.checkoutBtn} onClick={() => {
+                                    navigate('/checkout');
+                                    onClose();
+                                }}>
                                     Checkout
-                                </button>
-                                <button className={styles.compareBtn}>
-                                    Comparison
                                 </button>
                             </div>
                         </div>

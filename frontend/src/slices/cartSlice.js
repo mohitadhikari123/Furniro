@@ -95,7 +95,9 @@ export const syncCartWithBackend = createAsyncThunk(
             if (localCartItems.length > 0) {
                 for (const item of localCartItems) {
                     try {
+                        console.log("cartAPI  Called start ");
                         await cartApi.addToCart(item._id, item.quantity);
+                        console.log("cartAPI Called end");
                     } catch (error) {
                         console.warn('Failed to sync cart item:', item._id, error);
                     }

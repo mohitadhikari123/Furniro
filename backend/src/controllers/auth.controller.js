@@ -91,13 +91,17 @@ export const googleAuthSuccess = async (req, res) => {
         // Exclude password from response
         const { password: _, ...userWithoutPassword } = req.user.toObject();
         
+        // Get redirect parameter from query string
+        const redirectParam = req.query.redirect;
+        
         // Send HTML with script to communicate with parent window
         res.send(`
             <script>
                 window.opener.postMessage({
                     type: 'GOOGLE_AUTH_SUCCESS',
                     token: '${token}',
-                    user: ${JSON.stringify(userWithoutPassword)}
+                    user: ${JSON.stringify(userWithoutPassword)},
+                    redirect: '${redirectParam || ''}'
                 }, '${process.env.FRONTEND_URL || 'http://localhost:3001'}');
                 window.close();
             </script>

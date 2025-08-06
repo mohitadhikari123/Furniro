@@ -1,0 +1,164 @@
+.categoriesPage {
+  min-height: 100vh;
+}
+
+/* Banner Section */
+.banner {
+  position: relative;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.bannerImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(3px);
+  transform: scale(1.1);
+}
+
+.banner h1,
+.banner p {
+  position: relative;
+  z-index: 1;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+}
+
+.banner h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.banner p {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+/* Categories Section */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 50px;
+  color: #b88e2f;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 15px 10px 0;
+  color: #333;
+  line-height: 1.3;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner h1 {
+    font-size: 1.8rem;
+  }
+  
+  .banner p {
+    font-size: 1rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 0 10px;
+  }
+  
+  .card img {
+    height: 150px;
+  }
+  
+  .card h3 {
+    font-size: 1rem;
+  }
+  
+  .container {
+    padding: 40px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner {
+    height: 200px;
+  }
+  
+  .banner h1 {
+    font-size: 1.5rem;
+  }
+  
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .card img {
+    height: 120px;
+  }
+  
+  .card h3 {
+    font-size: 0.9rem;
+    margin: 10px 5px 0;
+  }
+}

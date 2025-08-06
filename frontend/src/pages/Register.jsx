@@ -8,6 +8,9 @@ import styles from "../styles/Auth.module.css";
 import Product1 from "../assets/MaskGroup.png";
 
 const Register = () => {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
     const [formData, setFormData] = useState({
         name: "",
         email: "",

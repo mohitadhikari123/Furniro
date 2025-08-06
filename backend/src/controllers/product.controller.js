@@ -24,11 +24,19 @@ const optimizeImageUrl = (url) => {
 
 export const getAllProducts = async (req, res) => {
     try {
-        const { category } = req.query;
+        const { category, search } = req.query;
         let filter = {};
         
         if (category) {
             filter.category = category;
+        }
+        
+        if (search) {
+            filter.$or = [
+                { name: { $regex: search, $options: 'i' } },
+                { description: { $regex: search, $options: 'i' } },
+                { category: { $regex: search, $options: 'i' } }
+            ];
         }
         
         const products = await Product.find(filter);

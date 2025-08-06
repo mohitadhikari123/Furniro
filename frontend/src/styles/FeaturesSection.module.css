@@ -1,0 +1,141 @@
+.features {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 60px 20px;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+    max-width: 280px;
+    transition: transform 0.3s ease;
+    padding: 20px;
+    border-radius: 8px;
+    background: transparent;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+}
+
+.icon {
+    font-size: 3rem;
+    color: #b89037;
+    flex-shrink: 0;
+}
+
+.feature h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #000;
+    margin: 0;
+}
+
+.feature p {
+    font-size: 1rem;
+    color: #888;
+    margin: 5px 0 0;
+}
+
+/* Default variant - light background */
+.default {
+    background: #fdf9f4;
+}
+
+/* Minimal variant - no background */
+.minimal {
+    background: transparent;
+    padding: 40px 20px;
+}
+
+/* Compact variant - smaller padding */
+.compact {
+    background: #f8f9fa;
+    padding: 40px 20px;
+    gap: 20px;
+}
+
+/* Dark variant */
+.dark {
+    background: #2c2c2c;
+    color: #fff;
+}
+
+.dark .feature h3 {
+    color: #fff;
+}
+
+.dark .feature p {
+    color: #ccc;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .features {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .features {
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+    }
+    
+    .feature {
+        max-width: 90%;
+        text-align: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .icon {
+        font-size: 2.5rem;
+    }
+    
+    .compact {
+        padding: 30px 20px;
+    }
+    
+    .minimal {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .features {
+        padding: 30px 15px;
+        gap: 20px;
+    }
+    
+    .feature {
+        padding: 15px;
+    }
+    
+    .icon {
+        font-size: 2rem;
+    }
+    
+    .feature h3 {
+        font-size: 1.1rem;
+    }
+    
+    .feature p {
+        font-size: 0.9rem;
+    }
+    
+    .compact {
+        padding: 20px 15px;
+    }
+    
+    .minimal {
+        padding: 20px 15px;
+    }
+}

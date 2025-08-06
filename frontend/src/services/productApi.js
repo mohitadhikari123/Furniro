@@ -2,12 +2,22 @@ const API_BASE_URL = 'http://localhost:5000/api';
 
 export const productApi = {
     // Get all products
-    getAllProducts: async (category = null, signal = null) => {
+    getAllProducts: async (category = null, search = null, signal = null) => {
         try {
             let url = `${API_BASE_URL}/products`;
+            const params = new URLSearchParams();
+            
             if (category) {
-                url += `?category=${encodeURIComponent(category)}`;
+                params.append('category', category);
             }
+            if (search) {
+                params.append('search', search);
+            }
+            
+            if (params.toString()) {
+                url += `?${params.toString()}`;
+            }
+            
             const response = await fetch(url, { signal });
             if (!response.ok) {
                 throw new Error('Failed to fetch products');

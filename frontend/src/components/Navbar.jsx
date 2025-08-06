@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { FiUser, FiSearch, FiHeart, FiShoppingCart, FiMenu, FiX, FiLogOut } from "react-icons/fi";
+import { FiUser, FiSearch, FiHeart, FiShoppingCart, FiMenu, FiX, FiLogOut, FiPackage } from "react-icons/fi";
 import { logoutUser } from "../slices/authSlice";
+import SearchBar from "./SearchBar";
 import styles from "../styles/Navbar.module.css";
 import logo from "../assets/furniroLogo.png";
 
@@ -12,6 +13,7 @@ const Navbar = ({ onCartClick, onFavoritesClick }) => {
     const { user, isAuthenticated } = useSelector((state) => state.auth);
     const [menuOpen, setMenuOpen] = useState(false);
     const [showUserMenu, setShowUserMenu] = useState(false);
+    const [searchOpen, setSearchOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     
@@ -53,9 +55,10 @@ const Navbar = ({ onCartClick, onFavoritesClick }) => {
             <ul className={`${styles.navLinks} ${menuOpen ? styles.open : ""}`}>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/shop">Shop</Link></li>
+                <li><Link to="/categories">Categories</Link></li>
                 <li><Link to="/favorites">Favorites</Link></li>
-                <li>About</li>
-                <li>Contact</li>
+                <li><Link to="/about">About</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
             </ul>
 
             {/* Icons & Hamburger */}
@@ -72,10 +75,22 @@ const Navbar = ({ onCartClick, onFavoritesClick }) => {
                             onClick={() => setShowUserMenu(!showUserMenu)}
                         >
                             {user.avatar ? (
-                                <img src={user.avatar} alt={user.name} className={styles.avatar} />
-                            ) : (
-                                <FiUser className={styles.icon} />
-                            )}
+                                <img 
+                                    src={user.avatar} 
+                                    alt={user.name} 
+                                    className={styles.avatar}
+                                    referrerPolicy="no-referrer"
+                                    crossOrigin="anonymous"
+                                    onError={(e) => {
+                                        e.target.style.display = 'none';
+                                        e.target.nextSibling.style.display = 'block';
+                                    }}
+                                />
+                            ) : null}
+                            <FiUser 
+                                className={styles.icon} 
+                                style={{ display: user.avatar ? 'none' : 'block' }}
+                            />
                         </div>
                         {showUserMenu && (
                             <div className={styles.dropdown}>
@@ -83,6 +98,12 @@ const Navbar = ({ onCartClick, onFavoritesClick }) => {
                                     <span className={styles.userName}>{user.name}</span>
                                     <span className={styles.userEmail}>{user.email}</span>
                                 </div>
+                                <Link to="/orders" className={styles.ordersBtn} onClick={() => setShowUserMenu(false)}>
+                                    <FiPackage /> My Orders
+                                </Link>
+                                <Link to="/cart" className={styles.cartBtn} onClick={() => setShowUserMenu(false)}>
+                                    <FiShoppingCart /> My Cart
+                                </Link>
                                 <button onClick={handleLogout} className={styles.logoutBtn}>
                                     <FiLogOut /> Logout
                                 </button>
@@ -95,7 +116,11 @@ const Navbar = ({ onCartClick, onFavoritesClick }) => {
                     </Link>
                 )}
                 
-                <FiSearch className={styles.icon} />
+                <FiSearch 
+                    className={styles.icon} 
+                    onClick={() => setSearchOpen(true)}
+                    style={{ cursor: 'pointer' }}
+                />
                 
                 {/* Favorites Icon */}
                 <div className={styles.favoritesIcon} onClick={onFavoritesClick}>
@@ -109,6 +134,11 @@ const Navbar = ({ onCartClick, onFavoritesClick }) => {
                     {totalCartItems > 0 && <span className={styles.cartCount}>{totalCartItems}</span>}
                 </div>
             </div>
+            
+            <SearchBar 
+                isOpen={searchOpen} 
+                onClose={() => setSearchOpen(false)} 
+            />
         </nav>
     );
 };

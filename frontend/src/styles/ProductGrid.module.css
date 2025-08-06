@@ -11,9 +11,33 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
   justify-content: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Responsive grid layouts */
+@media (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
 }
 
 /* Hide all products except the first 2 on mobile screens */
@@ -55,4 +79,78 @@
 .cartBtn:hover {
   background: #b89037;
   color: #fff;
+}
+
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.pageBtn {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  border-radius: 5px;
+  min-width: 40px;
+}
+
+.pageBtn:hover:not(:disabled) {
+  background: #f5f5f5;
+  border-color: #b89037;
+}
+
+.pageBtn:disabled {
+  background: #f9f9f9;
+  color: #ccc;
+  cursor: not-allowed;
+  border-color: #eee;
+}
+
+.activePage {
+  background: #b89037 !important;
+  color: #fff !important;
+  border-color: #b89037 !important;
+}
+
+.activePage:hover {
+  background: #a67c2a !important;
+}
+
+.ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #666;
+  min-width: 40px;
+  user-select: none;
+}
+
+/* Responsive pagination */
+@media (max-width: 768px) {
+  .pagination {
+    gap: 5px;
+  }
+  
+  .pageBtn {
+    padding: 8px 12px;
+    font-size: 12px;
+    min-width: 35px;
+  }
+  
+  .ellipsis {
+    padding: 8px 12px;
+    font-size: 12px;
+    min-width: 35px;
+  }
 }
