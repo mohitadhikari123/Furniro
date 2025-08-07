@@ -1,0 +1,51 @@
+services:
+  # Backend API Service
+  - type: web
+    name: furniro-backend
+    env: node
+    region: oregon
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    # Add your environment variables here:
+    # - key: MONGODB_URI
+    #   sync: false
+    # - key: JWT_SECRET
+    #   sync: false
+    # - key: GOOGLE_CLIENT_ID
+    #   sync: false
+    # - key: GOOGLE_CLIENT_SECRET
+    #   sync: false
+    # - key: STRIPE_SECRET_KEY
+    #   sync: false
+    # - key: CLOUDINARY_CLOUD_NAME
+    #   sync: false
+    # - key: CLOUDINARY_API_KEY
+    #   sync: false
+    # - key: CLOUDINARY_API_SECRET
+    #   sync: false
+
+  # Frontend Static Site
+  - type: static
+    name: furniro-frontend
+    env: static
+    region: oregon
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./build
+    rootDir: ./frontend
+    # Add your environment variables here:
+    # - key: REACT_APP_API_URL
+    #   value: https://furniro-backend.onrender.com
+    # - key: REACT_APP_STRIPE_PUBLISHABLE_KEY
+    #   sync: false
+
+databases:
+  # Uncomment if you want to add a PostgreSQL database
+  # - name: furniro-db
+  #   databaseName: furniro
+  #   user: furniro_user
+  #   region: oregon
