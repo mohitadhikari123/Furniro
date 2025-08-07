@@ -15,7 +15,7 @@ export const productApi = {
             }
             
             if (params.toString()) {
-                url += `?${params.toString()}`;
+                url += `?${params.toString()}`; // Add query parameters if they exist
             }
             
             const response = await fetch(url, { signal });

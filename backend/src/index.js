@@ -21,7 +21,13 @@ const app = express();
 
 // CORS configuration
 app.use(cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3001",
+    origin: [
+        process.env.FRONTEND_URL || "http://localhost:3001",
+        "https://furniro-neon-rho.vercel.app",
+        "https://furniro-neon-rho.vercel.app/",
+        "http://localhost:3000",
+        "http://localhost:3001"
+    ],
     credentials: true
 }));
 
