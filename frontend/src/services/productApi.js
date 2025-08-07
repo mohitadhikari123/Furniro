@@ -4,7 +4,7 @@ export const productApi = {
     // Get all products
     getAllProducts: async (category = null, search = null, signal = null) => {
         try {
-            let url = `${API_BASE_URL}/products`;
+            let url = `${API_BASE_URL}/api/products`;
             const params = new URLSearchParams();
             
             if (category) {
@@ -32,7 +32,7 @@ export const productApi = {
     // Get single product by ID
     getProductById: async (id) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/products/${id}`);
+            const response = await fetch(`${API_BASE_URL}/api/products/${id}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch product');
             }
