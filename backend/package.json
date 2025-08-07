@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon -r dotenv/config src/index.js",
+    "start": "node src/index.js",
+    "build": "echo 'No build step required for Node.js backend'",
     "seed": "node src/seedProducts.js",
     "import-cloudinary": "node src/importCloudinaryProducts.js"
   },
