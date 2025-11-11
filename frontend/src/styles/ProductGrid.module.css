@@ -40,10 +40,13 @@
   }
 }
 
-/* Hide all products except the first 2 on mobile screens */
 @media (max-width: 480px) {
-  .grid > *:nth-child(n + 3) {
-    display: none;
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .pagination {
+    flex-wrap: wrap;
   }
 }
 
@@ -141,13 +144,13 @@
   .pagination {
     gap: 5px;
   }
-  
+
   .pageBtn {
     padding: 8px 12px;
     font-size: 12px;
     min-width: 35px;
   }
-  
+
   .ellipsis {
     padding: 8px 12px;
     font-size: 12px;
