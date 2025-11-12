@@ -51,23 +51,23 @@ const ProductCard = ({ product, showRemoveButton = false }) => {
         }
     };
 
-    const handleRemove = async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    // const handleRemove = async (e) => {
+    //     e.preventDefault();
+    //     e.stopPropagation();
         
-        if (!isAuthenticated) {
-            dispatch(removeFromFavorites(product._id));
-            return;
-        }
+    //     if (!isAuthenticated) {
+    //         dispatch(removeFromFavorites(product._id));
+    //         return;
+    //     }
         
-        try {
-            await dispatch(removeFromFavoritesAsync(product._id));
-        } catch (error) {
-            console.error('Error removing from favorites:', error);
-            // Fallback to local action if API fails
-            dispatch(removeFromFavorites(product._id));
-        }
-    };
+    //     try {
+    //         await dispatch(removeFromFavoritesAsync(product._id));
+    //     } catch (error) {
+    //         console.error('Error removing from favorites:', error);
+    //         // Fallback to local action if API fails
+    //         dispatch(removeFromFavorites(product._id));
+    //     }
+    // };
 
     const handleAddToCart = async (e) => {
         e.preventDefault();

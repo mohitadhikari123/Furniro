@@ -37,22 +37,22 @@ const SidebarCart = ({ isOpen, onClose }) => {
         }
     };
 
-    const handleQuantityChange = async (productId, newQuantity) => {
-        if (newQuantity <= 0) {
-            setShowConfirmRemove(productId);
-            return;
-        }
+    // const handleQuantityChange = async (productId, newQuantity) => {
+    //     if (newQuantity <= 0) {
+    //         setShowConfirmRemove(productId);
+    //         return;
+    //     }
         
-        setItemLoading(prev => ({ ...prev, [productId]: true }));
-        try {
-            dispatch(updateQuantity({ productId, quantity: newQuantity }));
-            setNotification({ type: 'success', message: 'Quantity updated' });
-        } catch (error) {
-            setNotification({ type: 'error', message: 'Failed to update quantity' });
-        } finally {
-            setItemLoading(prev => ({ ...prev, [productId]: false }));
-        }
-    };
+    //     setItemLoading(prev => ({ ...prev, [productId]: true }));
+    //     try {
+    //         dispatch(updateQuantity({ productId, quantity: newQuantity }));
+    //         setNotification({ type: 'success', message: 'Quantity updated' });
+    //     } catch (error) {
+    //         setNotification({ type: 'error', message: 'Failed to update quantity' });
+    //     } finally {
+    //         setItemLoading(prev => ({ ...prev, [productId]: false }));
+    //     }
+    // };
 
     const getImageSrc = (item) => {
         if (item.img) return item.img;

@@ -160,7 +160,7 @@ const Checkout = () => {
             }
             
             // For other payment methods, create order directly
-            const response = await orderApi.createOrder(orderData);
+            // const response = await orderApi.createOrder(orderData);
             
             // Clear cart after successful order
             dispatch(clearCart());
