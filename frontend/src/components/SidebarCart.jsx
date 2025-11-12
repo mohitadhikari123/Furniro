@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { removeFromCartAsync, updateQuantity, syncCartWithBackend } from "../slices/cartSlice";
+import { removeFromCartAsync, syncCartWithBackend } from "../slices/cartSlice";
 import styles from "../styles/SidebarCart.module.css";
 import { FiX, FiShoppingCart, FiTrash2 } from "react-icons/fi";
 import fallbackImage from "../assets/Product1.png";
